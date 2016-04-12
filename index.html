@@ -1,0 +1,426 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Look ma! No Classes!</title>
+	<style type="text/css">
+		*, 
+		*::before, 
+		*::after {
+			box-sizing: border-box;
+		}
+		svg,
+		img {
+			display: block;
+			max-width: 100%;
+			height: auto;
+		}
+		html, body {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			padding: 8em 1em 1em 1em;
+			font-family: sans-serif;
+			font-size: 16px;
+			color: #000;
+			line-height: 1.4;
+		}
+		body > header {
+			position: fixed;
+			z-index: 5;
+			top: 0;
+			left: 0;
+			right: 0;
+			line-height: 1.2;
+			background: #f7f7f7;
+			border-bottom: solid 1px #ccc;
+		}
+
+		/* the logo */
+		nav > a {
+			background: tomato;
+			width: 4em;
+			height: 4em;
+			margin-top: 1em;
+			display: block;
+			text-indent: -999em;
+			float: left;
+			position: relative;
+			border-radius: 50%;
+		}
+		nav > a::before,
+		nav > a::after {
+			content: "";
+			display: block;
+			position: absolute;
+			width: 50%; 
+			height: 50%;
+		}
+		nav > a::before {
+			top: 0;
+			left: 0;
+			background: rgba(255,255,255,.25);
+		}
+		nav > a::after {
+			bottom: 0;
+			right: 0;
+			background: rgba(255,255,255,.25);
+		}
+
+		/* both menu's */
+		nav	ul {
+			display: block;
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		/* all links in menu */
+		nav ul a {
+			color: #000;
+			text-transform: uppercase;
+			display: block;
+			white-space: nowrap;
+		}
+
+		/* the toplevel menu */
+		nav > ul {
+			float: right;
+		}
+		/* toplevel list items */
+		nav > ul > li {
+			float: left;
+			position: relative;
+		}
+		/* show the submenu on hover */
+		nav > ul > li:hover ul {
+			display: block;
+		}
+		/* toplevel a tags */
+		nav > ul > li > a {
+			position: relative;
+			padding: 3em 1em 2em;
+		}
+		nav > ul > li:hover {
+			/*background: #eee;*/
+		}
+		nav > ul > li > a::before {
+			content: "";
+			display: block;
+			border: solid 10px transparent;
+			width: 0;
+			height: 0;
+			border-top-color: #ccc;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%) translateY(-100%);
+		}
+		nav > ul > li:hover > a::before {
+			transform: translateX(-50%) translateY(0%);
+			transition: transform .3s ease-in-out;
+		}
+
+		/* the submenu list */
+		nav ul ul {
+			/*padding: .5em 0;*/
+			display: none;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			/*left: 50%;*/
+			/*transform: translateX(-50%);*/
+			background: #eee;
+			border-left: solid 1px #ccc;
+			border-right: solid 1px #ccc;
+			border-bottom: solid 1px #ccc;
+		}
+		nav > ul > li:last-child ul {
+			text-align: right;
+			left: auto;
+			right: 0;
+			transform: none;
+		}
+		/* submenu a tags */
+		nav ul ul a {
+			padding: 1rem;
+			font-size: .75em;
+		}
+
+		nav ul ul a:hover {
+			background: #bbb;
+		}
+
+		/* the generic a tag */
+		a {
+			color: blue;
+			text-decoration: none;
+		}
+
+		main > div,
+		main > figure {
+			width: 48%;
+			margin-bottom: 3em;
+			float: left;
+		}
+		
+		main > p ~ *:nth-child(odd) {
+			padding-right: 2%;
+			clear: left;
+		}
+		main > p ~ *:nth-child(even) {
+			padding-left: 2%;
+		}
+		main > p ~ *:nth-child(4n + 1) {
+			transform: translateX(100%);
+			padding-left: 2%;
+			padding-right: 0;
+		}
+		main > p ~ *:nth-child(4n + 2) {
+			transform: translateX(-100%);
+			padding-left: 0;
+			padding-right: 2%;
+		}
+
+		
+		
+		figure {
+			margin: 0 0 3em;
+		}
+
+		h1 {
+			border-bottom: solid 1px #000;
+			padding-bottom: .5em;
+			margin-bottom: .5em;
+			font-weight: 100;
+		}
+		h1 + p {
+			font-size: 1.5em;
+			margin-bottom: 3em;
+			font-weight: lighter;
+		}
+		
+		h2:first-child {
+			margin-top: 0;
+		}
+
+		h2 + p {
+			font-size: 1.2em;
+			font-weight: lighter;
+			font-style: italic;
+		}
+
+		dt {
+			font-weight: bold;
+			margin-bottom: .5em;
+		}
+		dd {
+			margin-bottom: 1em;
+		}
+
+		figcaption {
+			text-align: center;
+			font-style: italic;
+			padding: .3em 0;
+			position: relative;
+			font-size: .85em;
+		}
+		figcaption span {
+			font-family: serif;
+			background: #fff;
+			display: inline-block;
+			padding-left: .5rem;
+			padding-right: .5rem;
+		}
+		figcaption::before {
+			content: "";
+			display: block;
+			position: absolute;
+			bottom: 46%;
+			left: 0;
+			right: 0;
+			border-bottom: dotted 1px #888;
+			z-index: -1;
+		}
+
+		body > footer {
+			text-align: center;
+			/*font-size: .6em;*/
+			color: #fff;
+			padding: 1em;
+			font-size: .6em;
+			background: #333;
+			margin-left: -1rem;
+			margin-right: -1rem;
+			margin-bottom: -1rem;
+
+		}
+		body > footer  a {
+			color: aliceblue;
+			border-bottom: solid 1px aliceblue;
+		}
+		body > footer  a:hover {
+			border-bottom: solid 1px tomato;
+		}
+
+
+		/* clearfixes */
+		nav:before,
+		nav:after,
+		main:before,
+		main:after {
+			content: " "; /* 1 */
+			display: table; /* 2 */
+		}
+		nav:after,
+		main:after {
+			clear: both;
+		}
+		/* containers */
+		main,
+		nav {
+			max-width: 1100px;
+			margin-left: auto;
+			margin-right: auto;
+			padding-left: 1em;
+			padding-right: 1em;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<nav>
+			<a href="#">Logo</a>
+			<ul>
+				<li>
+					<a href="#">Menuitem</a>
+				</li>
+				<li>
+					<a href="#">Menuitem</a>
+				</li>
+				<li>
+					<a href="#">Menuitem</a>
+					<ul>
+						<li><a href="#">Submenu item lorem</a></li>
+						<li><a href="#">Submenu item ipsum dolor</a></li>
+						<li><a href="#">Submenu item</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">Menuitem</a>
+					<ul>
+						<li><a href="#">Submenu item lorem</a></li>
+						<li><a href="#">Submenu item ipsum dolor</a></li>
+						<li><a href="#">Submenu item</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">Menuitem</a>
+					<ul>
+						<li><a href="#">Submenu item lorem</a></li>
+						<li><a href="#">Submenu item ipsum dolor</a></li>
+						<li><a href="#">Submenu item</a></li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<h1>Look ma! No classes!</h1>
+		<p>An excercise to get a grip on the magic css selectors and to get acquainted with some beautiful html elements that can help you cure diveritus.</p>
+		<div>
+			<h2>This is by not by a stretch an example of best practices</h2>
+			<p>It is however one of the best ways to get to grip on the magic of css selectors. By getting grip on these, you'll apply class names a lot more efficient.</p>
+			<h3>How to use this exercise</h3>
+			<p>Copy the source of this document, strip the <code>&lt;style&gt;</code> block from the <code>&lt;head&gt;</code>, then rebuild by adding your own css. None of the html may be modified, no classes added, all styling must be done by using the untouched and serene html elements. Make a perfect match with this document and you can call yourself a css master.</p>
+			<dl>
+				<dt>"This is not really beautiful design is it?"</dt>
+				<dd>No it is not. But in a way it is.. It is pure html, styled with magic css. There is beauty in that!</dd>
+				<dt>"I don't like dropdown menu's"</dt>
+				<dd>Me neither but it is an excellent excercise to build one with only css</dd>
+				<dt>"This is not responsive!"</dt>
+				<dd>Hold your horses.. Working on it.</dd>
+				<dt>"I know something to make this more fancy!"</dt>
+				<dd>Me to. Make a pull request and let's make this a great frontend assessment</dd>
+			</dl>			
+		</div>
+		<figure>
+			<svg width="640" preserveAspectRatio="none" height="480" viewBox="0 0 640 480" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+				<g id="Layer1">
+					<rect x="0" y="0" width="640" height="480" style="fill:#000;fill-opacity:0.2;"/>
+					<path d="M0,0l640,480" style="fill:none;stroke-width:1px;stroke:#000;stroke-opacity:0.196078;"/>
+					<path d="M0,480l640,-480" style="fill:none;stroke-width:1px;stroke:#000;stroke-opacity:0.196078;"/>
+				</g>
+			</svg>
+			<figcaption><span>Nice caption</span></figcaption>
+		</figure>
+		<div>
+			<h2>I have things I want to improve</h2>
+			<ul>
+				<li>Short css animation on submenu hover, roll out from top</li>
+				<li>Add media queries to make it fully responsive</li>
+				<li>Add jQuery <small>(kidding ofcourse)</small></li>
+			</ul>
+		</div>
+		<figure>
+			<svg width="640" preserveAspectRatio="none" height="480" viewBox="0 0 640 480" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+				<g id="Layer1">
+					<rect x="0" y="0" width="640" height="480" style="fill:#000;fill-opacity:0.2;"/>
+					<path d="M0,0l640,480" style="fill:none;stroke-width:1px;stroke:#000;stroke-opacity:0.196078;"/>
+					<path d="M0,480l640,-480" style="fill:none;stroke-width:1px;stroke:#000;stroke-opacity:0.196078;"/>
+				</g>
+			</svg>
+			<figcaption><span>Nice caption</span></figcaption>
+		</figure>
+		<div>
+			<h2>Lorem ipsum dolor sit amet</h2>
+			<p>Intro text Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat, expedita tempora sit laudantium.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto quae laboriosam repudiandae! Iusto quia optio, officiis ea animi perferendis. Id nam placeat omnis blanditiis libero labore sunt delectus dolor obcaecati.</p>
+		</div>
+		<figure>
+			<svg width="640" preserveAspectRatio="none" height="480" viewBox="0 0 640 480" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+				<g id="Layer1">
+					<rect x="0" y="0" width="640" height="480" style="fill:#000;fill-opacity:0.2;"/>
+					<path d="M0,0l640,480" style="fill:none;stroke-width:1px;stroke:#000;stroke-opacity:0.196078;"/>
+					<path d="M0,480l640,-480" style="fill:none;stroke-width:1px;stroke:#000;stroke-opacity:0.196078;"/>
+				</g>
+			</svg>
+			<figcaption><span>Nice caption</span></figcaption>
+		</figure>
+		<div>
+			<h2>Lorem ipsum dolor sit amet</h2>
+			<p>Intro text Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat, expedita tempora sit laudantium.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto quae laboriosam repudiandae! Iusto quia optio, officiis ea animi perferendis. Id nam placeat omnis blanditiis libero labore sunt delectus dolor obcaecati.</p>
+		</div>
+		<figure>
+			<svg width="640" preserveAspectRatio="none" height="480" viewBox="0 0 640 480" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+				<g id="Layer1">
+					<rect x="0" y="0" width="640" height="480" style="fill:#000;fill-opacity:0.2;"/>
+					<path d="M0,0l640,480" style="fill:none;stroke-width:1px;stroke:#000;stroke-opacity:0.196078;"/>
+					<path d="M0,480l640,-480" style="fill:none;stroke-width:1px;stroke:#000;stroke-opacity:0.196078;"/>
+				</g>
+			</svg>
+			<figcaption><span>Nice caption</span></figcaption>
+		</figure>
+		<div>
+			<h2>Lorem ipsum dolor sit amet</h2>
+			<p>Intro text Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat, expedita tempora sit laudantium.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto quae laboriosam repudiandae! Iusto quia optio, officiis ea animi perferendis. Id nam placeat omnis blanditiis libero labore sunt delectus dolor obcaecati.</p>
+		</div>
+		<figure>
+			<svg width="640" preserveAspectRatio="none" height="480" viewBox="0 0 640 480" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+				<g id="Layer1">
+					<rect x="0" y="0" width="640" height="480" style="fill:#000;fill-opacity:0.2;"/>
+					<path d="M0,0l640,480" style="fill:none;stroke-width:1px;stroke:#000;stroke-opacity:0.196078;"/>
+					<path d="M0,480l640,-480" style="fill:none;stroke-width:1px;stroke:#000;stroke-opacity:0.196078;"/>
+				</g>
+			</svg>
+			<figcaption><span>Nice caption</span></figcaption>
+		</figure>
+
+	</main>
+	<footer>
+		<div>Created with &hearts; by <a href="http://matthijsbrouwer.nl/">Matthijs Brouwer</a></div>
+	</footer>
+</body>
+</html>
